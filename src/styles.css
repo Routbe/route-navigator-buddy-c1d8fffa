@@ -1,8 +1,6 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-/* Neon Auth (Better Auth) UI — voorgemonteerde stijlen; thema via onze --background/--primary variabelen. */
-@import "@neondatabase/neon-js/ui/css";
 
 @custom-variant dark (&:is(.dark *));
 
