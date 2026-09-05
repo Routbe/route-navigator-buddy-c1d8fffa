@@ -19,6 +19,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LanguageSync } from "@/components/LanguageSync";
+import { NeonAuthProvider } from "@/components/NeonAuthProvider";
 import "@/lib/env";
 
 function NotFoundComponent() {
@@ -177,8 +178,10 @@ function RootComponent() {
             <AuthProvider>
               <LanguageSync />
               <ErrorBoundary>
-                {/* Required: nested routes render here. */}
-                <Outlet />
+                <NeonAuthProvider>
+                  {/* Required: nested routes render here. */}
+                  <Outlet />
+                </NeonAuthProvider>
               </ErrorBoundary>
             </AuthProvider>
           </TooltipProvider>

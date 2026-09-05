@@ -48,8 +48,10 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDomainsRouteImport } from './routes/_authenticated/domains'
 import { Route as AuthenticatedMyDataRouteImport } from './routes/_authenticated/my-data'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AccountAccountViewRouteImport } from './routes/account.$accountView'
 import { Route as ApiClaimRootRouteImport } from './routes/api/claim-root'
 import { Route as ApiPaymentStatusRouteImport } from './routes/api_.payment-status'
+import { Route as AuthAuthViewRouteImport } from './routes/auth.$authView'
 import { Route as AuthCallbackRouteImport } from './routes/auth_.callback'
 import { Route as AuthGitlabRouteImport } from './routes/auth_.gitlab'
 import { Route as AuthVerifyRouteImport } from './routes/auth_.verify'
@@ -290,6 +292,11 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AccountAccountViewRoute = AccountAccountViewRouteImport.update({
+  id: '/account/$accountView',
+  path: '/account/$accountView',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiClaimRootRoute = ApiClaimRootRouteImport.update({
   id: '/claim-root',
   path: '/claim-root',
@@ -299,6 +306,11 @@ const ApiPaymentStatusRoute = ApiPaymentStatusRouteImport.update({
   id: '/api_/payment-status',
   path: '/api/payment-status',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthAuthViewRoute = AuthAuthViewRouteImport.update({
+  id: '/$authView',
+  path: '/$authView',
+  getParentRoute: () => AuthRoute,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/auth_/callback',
@@ -546,7 +558,7 @@ export interface FileRoutesByFullPath {
   '/$username': typeof UsernameRouteWithChildren
   '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
   '/claim': typeof ClaimRoute
@@ -580,8 +592,10 @@ export interface FileRoutesByFullPath {
   '/domains': typeof AuthenticatedDomainsRoute
   '/my-data': typeof AuthenticatedMyDataRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/account/$accountView': typeof AccountAccountViewRoute
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api/payment-status': typeof ApiPaymentStatusRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/gitlab': typeof AuthGitlabRouteWithChildren
   '/auth/verify': typeof AuthVerifyRoute
@@ -633,7 +647,7 @@ export interface FileRoutesByTo {
   '/$username': typeof UsernameRouteWithChildren
   '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
   '/claim': typeof ClaimRoute
@@ -667,8 +681,10 @@ export interface FileRoutesByTo {
   '/domains': typeof AuthenticatedDomainsRoute
   '/my-data': typeof AuthenticatedMyDataRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/account/$accountView': typeof AccountAccountViewRoute
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api/payment-status': typeof ApiPaymentStatusRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/gitlab': typeof AuthGitlabRouteWithChildren
   '/auth/verify': typeof AuthVerifyRoute
@@ -722,7 +738,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
   '/claim': typeof ClaimRoute
@@ -756,8 +772,10 @@ export interface FileRoutesById {
   '/_authenticated/domains': typeof AuthenticatedDomainsRoute
   '/_authenticated/my-data': typeof AuthenticatedMyDataRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/account/$accountView': typeof AccountAccountViewRoute
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api_/payment-status': typeof ApiPaymentStatusRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
   '/auth_/callback': typeof AuthCallbackRoute
   '/auth_/gitlab': typeof AuthGitlabRouteWithChildren
   '/auth_/verify': typeof AuthVerifyRoute
@@ -845,8 +863,10 @@ export interface FileRouteTypes {
     | '/domains'
     | '/my-data'
     | '/settings'
+    | '/account/$accountView'
     | '/api/claim-root'
     | '/api/payment-status'
+    | '/auth/$authView'
     | '/auth/callback'
     | '/auth/gitlab'
     | '/auth/verify'
@@ -932,8 +952,10 @@ export interface FileRouteTypes {
     | '/domains'
     | '/my-data'
     | '/settings'
+    | '/account/$accountView'
     | '/api/claim-root'
     | '/api/payment-status'
+    | '/auth/$authView'
     | '/auth/callback'
     | '/auth/gitlab'
     | '/auth/verify'
@@ -1020,8 +1042,10 @@ export interface FileRouteTypes {
     | '/_authenticated/domains'
     | '/_authenticated/my-data'
     | '/_authenticated/settings'
+    | '/account/$accountView'
     | '/api/claim-root'
     | '/api_/payment-status'
+    | '/auth/$authView'
     | '/auth_/callback'
     | '/auth_/gitlab'
     | '/auth_/verify'
@@ -1075,7 +1099,7 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   ApiRoute: typeof ApiRouteWithChildren
-  AuthRoute: typeof AuthRoute
+  AuthRoute: typeof AuthRouteWithChildren
   BatchRoute: typeof BatchRoute
   CardRoute: typeof CardRoute
   ClaimRoute: typeof ClaimRoute
@@ -1101,6 +1125,7 @@ export interface RootRouteChildren {
   VerifyRoute: typeof VerifyRoute
   WifiQrRoute: typeof WifiQrRoute
   DotwellKnownAtprotoDidRoute: typeof DotwellKnownAtprotoDidRoute
+  AccountAccountViewRoute: typeof AccountAccountViewRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthGitlabRoute: typeof AuthGitlabRouteWithChildren
@@ -1408,6 +1433,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/account/$accountView': {
+      id: '/account/$accountView'
+      path: '/account/$accountView'
+      fullPath: '/account/$accountView'
+      preLoaderRoute: typeof AccountAccountViewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/claim-root': {
       id: '/api/claim-root'
       path: '/claim-root'
@@ -1421,6 +1453,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/payment-status'
       preLoaderRoute: typeof ApiPaymentStatusRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth/$authView': {
+      id: '/auth/$authView'
+      path: '/$authView'
+      fullPath: '/auth/$authView'
+      preLoaderRoute: typeof AuthAuthViewRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/auth_/callback': {
       id: '/auth_/callback'
@@ -1827,6 +1866,16 @@ const ApiRouteChildren: ApiRouteChildren = {
 
 const ApiRouteWithChildren = ApiRoute._addFileChildren(ApiRouteChildren)
 
+interface AuthRouteChildren {
+  AuthAuthViewRoute: typeof AuthAuthViewRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthAuthViewRoute: AuthAuthViewRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 interface AuthGitlabRouteChildren {
   AuthGitlabCallbackRoute: typeof AuthGitlabCallbackRoute
 }
@@ -1886,7 +1935,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   ApiRoute: ApiRouteWithChildren,
-  AuthRoute: AuthRoute,
+  AuthRoute: AuthRouteWithChildren,
   BatchRoute: BatchRoute,
   CardRoute: CardRoute,
   ClaimRoute: ClaimRoute,
@@ -1912,6 +1961,7 @@ const rootRouteChildren: RootRouteChildren = {
   VerifyRoute: VerifyRoute,
   WifiQrRoute: WifiQrRoute,
   DotwellKnownAtprotoDidRoute: DotwellKnownAtprotoDidRoute,
+  AccountAccountViewRoute: AccountAccountViewRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthGitlabRoute: AuthGitlabRouteWithChildren,
