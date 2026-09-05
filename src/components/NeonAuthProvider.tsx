@@ -1,6 +1,6 @@
 import { Link as RouterLink, useRouter } from "@tanstack/react-router";
 import { NeonAuthUIProvider } from "@neondatabase/neon-js/auth/react/ui";
-import { neon } from "@/lib/neon";
+import { neonAuth } from "@/lib/neon";
 import type { ReactNode } from "react";
 
 /**

@@ -1,29 +1,27 @@
 import { neon as neonSql, type NeonQueryFunction } from "@neondatabase/serverless";
-import { createClient } from "@neondatabase/neon-js";
+import { createAuthClient } from "@neondatabase/neon-js/auth";
 import { BetterAuthReactAdapter } from "@neondatabase/neon-js/auth/react/adapters";
 
 /**
  * Neon-clients voor project ROUT.
  *
- * `neon`  — Neon Auth (Better Auth) client voor de browser: sign-up, sign-in
- *           en sessiebeheer via de Neon Auth service. Veilig voor de client
- *           bundle; de URL is publiek (VITE_NEON_AUTH_URL).
+ * `neonAuth` — Neon Auth (Better Auth) client voor de browser: sign-up,
+ *              sign-in en sessiebeheer via de Neon Auth service. Veilig voor
+ *              de client bundle; de URL is publiek (VITE_NEON_AUTH_URL).
  *
- * `sql`   — Server-only Neon Postgres client. De driver wordt lazy aangemaakt
- *           zodat een ontbrekende DATABASE_URL de module-evaluatie niet laat
- *           crashen. Alleen gebruiken in server functions of route handlers;
- *           DATABASE_URL komt nooit in de client bundle terecht.
+ * `sql`      — Server-only Neon Postgres client. De driver wordt lazy
+ *              aangemaakt zodat een ontbrekende DATABASE_URL de module-
+ *              evaluatie niet laat crashen. Alleen gebruiken in server
+ *              functions of route handlers; DATABASE_URL komt nooit in de
+ *              client bundle terecht.
  */
 
 const NEON_AUTH_URL =
   import.meta.env.VITE_NEON_AUTH_URL ??
   "https://ep-autumn-salad-b1wk95js.neonauth.c-5.eu-central-1.aws.neon.tech/neondb/auth";
 
-export const neon = createClient({
-  auth: {
-    url: NEON_AUTH_URL,
-    adapter: BetterAuthReactAdapter(),
-  },
+export const neonAuth = createAuthClient(NEON_AUTH_URL, {
+  adapter: BetterAuthReactAdapter(),
 });
 
 let client: NeonQueryFunction<false, false> | null = null;
