@@ -1,13 +1,31 @@
-import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import { neon as neonSql, type NeonQueryFunction } from "@neondatabase/serverless";
+import { createClient } from "@neondatabase/neon-js";
+import { BetterAuthReactAdapter } from "@neondatabase/neon-js/auth/react/adapters";
 
 /**
- * Server-only Neon Postgres client for project ROUT.
+ * Neon-clients voor project ROUT.
  *
- * The client is created lazily on first query so that a missing DATABASE_URL
- * does not crash module evaluation (which would blank the whole app). Only
- * import this in server functions, API route handlers, or other server-only
- * modules — DATABASE_URL is never exposed to the client bundle.
+ * `neon`  — Neon Auth (Better Auth) client voor de browser: sign-up, sign-in
+ *           en sessiebeheer via de Neon Auth service. Veilig voor de client
+ *           bundle; de URL is publiek (VITE_NEON_AUTH_URL).
+ *
+ * `sql`   — Server-only Neon Postgres client. De driver wordt lazy aangemaakt
+ *           zodat een ontbrekende DATABASE_URL de module-evaluatie niet laat
+ *           crashen. Alleen gebruiken in server functions of route handlers;
+ *           DATABASE_URL komt nooit in de client bundle terecht.
  */
+
+const NEON_AUTH_URL =
+  import.meta.env.VITE_NEON_AUTH_URL ??
+  "https://ep-autumn-salad-b1wk95js.neonauth.c-5.eu-central-1.aws.neon.tech/neondb/auth";
+
+export const neon = createClient({
+  auth: {
+    url: NEON_AUTH_URL,
+    adapter: BetterAuthReactAdapter(),
+  },
+});
+
 let client: NeonQueryFunction<false, false> | null = null;
 
 function getClient(): NeonQueryFunction<false, false> {
@@ -16,7 +34,7 @@ function getClient(): NeonQueryFunction<false, false> {
   if (!connectionString) {
     throw new Error("DATABASE_URL is not configured for the Neon database connection.");
   }
-  client = neon(connectionString);
+  client = neonSql(connectionString);
   return client;
 }
 
