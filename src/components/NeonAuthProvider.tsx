@@ -29,7 +29,7 @@ export function NeonAuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <NeonAuthUIProvider
-      authClient={neon.auth}
+      authClient={neonAuth}
       navigate={(href: string) => void router.navigate({ to: href as never })}
       replace={(href: string) => void router.navigate({ to: href as never, replace: true })}
       Link={NeonLink}
