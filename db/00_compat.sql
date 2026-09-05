@@ -1,9 +1,9 @@
--- Supabase-compatibility shim for the Neon Postgres database (Frankfurt).
+-- Compatibility shim for the Neon Postgres database (Frankfurt).
 --
--- The migrations in supabase/migrations were written for Supabase, which
+-- Some migrations in this folder were originally written for Supabase, which
 -- ships an `auth` schema, a `storage` schema and the anon/authenticated/
 -- service_role roles. Neon has none of those, so we create minimal stand-ins
--- before replaying the migrations. RLS policies referencing these objects then
+-- before applying the migrations. RLS policies referencing these objects then
 -- apply cleanly; the app itself connects as the database owner.
 
 -- Roles used by GRANT/POLICY statements.
