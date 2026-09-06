@@ -11,11 +11,10 @@ import { enforceRateLimit, RateLimitError } from "@/lib/rate-limit.server";
 
 describe("claim-root guards", () => {
   it("wijst een verzoek zonder sessie af met 401", async () => {
-    const { readSession } = await import("@/lib/auth/session.server");
-    expect(typeof readSession).toBe("function");
-    // Geen token → geen sessie → de route antwoordt 401.
-    await expect(readSession(null)).resolves.toBeNull();
-    await expect(readSession(undefined)).resolves.toBeNull();
+    const { currentUser } = await import("@/lib/auth/session.server");
+    expect(typeof currentUser).toBe("function");
+    // Geen Neon Auth-sessie → de route antwoordt 401.
+    await expect(currentUser()).resolves.toBeNull();
   });
 
   it("blokkeert meer dan 3 pogingen binnen 10 minuten", () => {

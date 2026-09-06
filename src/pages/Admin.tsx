@@ -518,7 +518,7 @@ export default function Admin() {
   useEffect(() => {
     if (loading) return;
     if (!user) {
-      nav("/auth", { replace: true });
+      nav("/auth/sign-in", { replace: true });
       return;
     }
     (async () => {

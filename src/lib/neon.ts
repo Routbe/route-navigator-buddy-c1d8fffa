@@ -20,7 +20,15 @@ const NEON_AUTH_URL =
   import.meta.env.VITE_NEON_AUTH_URL ??
   "https://ep-autumn-salad-b1wk95js.neonauth.c-5.eu-central-1.aws.neon.tech/neondb/auth";
 
-export const neonAuth = createAuthClient(NEON_AUTH_URL, {
+/**
+ * In de browser praten we met onze eigen origin (`/api/auth/*`). Die route
+ * proxyt naar Neon Auth en maakt de sessiecookie first-party, zodat de server
+ * de sessie bij elk verzoek kan lezen.
+ */
+const AUTH_CLIENT_URL =
+  typeof window === "undefined" ? NEON_AUTH_URL : `${window.location.origin}/api/auth`;
+
+export const neonAuth = createAuthClient(AUTH_CLIENT_URL, {
   adapter: BetterAuthReactAdapter(),
 });
 

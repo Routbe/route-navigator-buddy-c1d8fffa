@@ -41,7 +41,7 @@ import {
 } from "@/components/ui/dialog";
 import { useAuth } from "@/hooks/useAuth";
 import { db } from "@/lib/db/client";
-import { revokeOtherSessions, signInWithPassword, updateAuthUser } from "@/lib/auth.functions";
+import { updateAuthUser } from "@/lib/auth.functions";
 import { toast } from "sonner";
 import { LOCALES, LOCALE_LABELS, useI18n } from "@/lib/i18n";
 import { useLanguagePreference } from "@/hooks/useLanguagePreference";
@@ -99,7 +99,7 @@ export default function AccountSettings() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) nav("/auth", { replace: true });
+    if (!loading && !user) nav("/auth/sign-in", { replace: true });
   }, [user, loading, nav]);
 
   useEffect(() => {
@@ -152,49 +152,11 @@ export default function AccountSettings() {
     toast.success("Profile saved");
   };
 
-  /** Confirms the member's identity before an e-mail or password change. */
-  const reauthenticate = async (password: string) => {
-    const result = await signInWithPassword({
-      data: { email: user.email ?? "", password },
-    });
-    return result.ok;
-  };
+  /** Credentials live in Neon Auth; send the member to the secure account area. */
+  const openNeonAccount = () => nav("/account/settings");
 
-  const changeEmail = async () => {
-    const next = email.trim();
-    if (!/^\S+@\S+\.\S+$/.test(next)) return toast.error("Enter a valid e-mail address.");
-    if (!emailCurrentPassword)
-      return toast.error("Enter your current password to confirm this change.");
-    setBusyEmail(true);
-    if (!(await reauthenticate(emailCurrentPassword))) {
-      setBusyEmail(false);
-      return toast.error("Current password is incorrect.");
-    }
-    const result = await updateAuthUser({ data: { email: next } });
-    setBusyEmail(false);
-    if (!result.ok) return toast.error(result.message ?? "Could not change your e-mail address.");
-    toast.success("Check your inbox to confirm the new address.");
-    setEmail("");
-    setEmailCurrentPassword("");
-  };
-
-  const changePassword = async () => {
-    if (!currentPassword) return toast.error("Enter your current password.");
-    if (newPassword.length < 8) return toast.error("Use at least 8 characters.");
-    if (newPassword !== confirmPassword) return toast.error("Passwords do not match.");
-    setBusyPassword(true);
-    if (!(await reauthenticate(currentPassword))) {
-      setBusyPassword(false);
-      return toast.error("Current password is incorrect.");
-    }
-    const result = await updateAuthUser({ data: { password: newPassword } });
-    setBusyPassword(false);
-    if (!result.ok) return toast.error(result.message ?? "Could not update your password.");
-    toast.success("Password updated");
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-  };
+  const changeEmail = openNeonAccount;
+  const changePassword = openNeonAccount;
 
   const enable2fa = async () => {
     toast.info("Two-factor authentication is coming soon.");
@@ -204,14 +166,7 @@ export default function AccountSettings() {
     toast.info("2FA verification is coming soon — hang tight!");
   };
 
-  const signOutOthers = async () => {
-    try {
-      await revokeOtherSessions({});
-      toast.success("Signed out of all other sessions.");
-    } catch {
-      toast.error("Could not sign out your other sessions.");
-    }
-  };
+  const signOutOthers = () => openNeonAccount();
 
   const exportData = async () => {
     setExporting(true);

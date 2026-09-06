@@ -606,7 +606,7 @@ export default function DeveloperHub() {
   const nav = useNavigate();
 
   useEffect(() => {
-    if (!loading && !user) nav("/auth", { replace: true });
+    if (!loading && !user) nav("/auth/sign-in", { replace: true });
   }, [user, loading, nav]);
 
   const base = useOrigin();

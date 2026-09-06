@@ -66,7 +66,7 @@ export function MergeAccountWizard() {
         return;
       }
       toast.success(t("merge_account.success"));
-      window.location.href = "/auth";
+      window.location.href = "/auth/sign-in";
     } catch {
       toast.error(t("merge_account.error"));
     } finally {

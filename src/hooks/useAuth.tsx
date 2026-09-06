@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await router.invalidate();
     const path = typeof window === "undefined" ? "/" : window.location.pathname;
     if (PROTECTED_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`))) {
-      void router.navigate({ to: "/auth", search: {}, replace: true } as never);
+      void router.navigate({ to: "/auth/$authView", params: { authView: "sign-in" }, replace: true } as never);
     }
   }, [queryClient, router]);
 

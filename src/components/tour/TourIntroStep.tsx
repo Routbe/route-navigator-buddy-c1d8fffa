@@ -30,7 +30,7 @@ export function TourIntroStep() {
       </div>
       <p className="text-xs text-muted-foreground">
         {t("tour.intro.noAccount")}{" "}
-        <Link to="/auth" className="underline underline-offset-4 hover:text-foreground">
+        <Link to="/auth/sign-in" className="underline underline-offset-4 hover:text-foreground">
           {t("tour.intro.haveAccount")}
         </Link>
       </p>

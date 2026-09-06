@@ -274,7 +274,7 @@ export default function Stats() {
             <UserPlus className="w-4 h-4 shrink-0 text-muted-foreground" aria-hidden="true" />
             <p className="text-sm text-muted-foreground flex-1">{t("stats.claimBody")}</p>
             <Button asChild size="sm" variant="outline" className="shrink-0">
-              <Link to="/auth">{t("stats.claimCta")}</Link>
+              <Link to="/auth/sign-in">{t("stats.claimCta")}</Link>
             </Button>
           </div>
         )}

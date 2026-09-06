@@ -25,11 +25,8 @@ export const Route = createFileRoute("/api_/profiles/check-handle")({
         }
 
         // Eigen handle mag "vrij" heten voor de ingelogde eigenaar.
-        const { readSession, readCookie, SESSION_COOKIE } =
-          await import("@/lib/auth/session.server");
-        const user = await readSession(
-          readCookie(request.headers.get("cookie"), SESSION_COOKIE),
-        ).catch(() => null);
+        const { currentUser } = await import("@/lib/auth/session.server");
+        const user = await currentUser().catch(() => null);
 
         try {
           const { isHandleFree } = await import("@/lib/studio-profile.server");

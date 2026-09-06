@@ -96,7 +96,7 @@ export function SaveQRButton({ qrType, qrValue, config, disabled, nameHint }: Pr
   const handleClick = () => {
     if (!user) {
       toast(t("save.signIn"), {
-        action: { label: t("save.signInAction"), onClick: () => nav("/auth") },
+        action: { label: t("save.signInAction"), onClick: () => nav("/auth/sign-in") },
       });
       return;
     }

@@ -105,7 +105,7 @@ export default function VerifyGuide() {
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
-              to="/auth"
+              to="/auth/sign-in"
               className="inline-flex min-h-11 items-center justify-center rounded-xl bg-foreground px-6 text-sm font-medium text-background transition-opacity hover:opacity-90"
             >
               {t("verify.cta.start")}

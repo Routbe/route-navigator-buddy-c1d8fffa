@@ -35,11 +35,8 @@ export const Route = createFileRoute("/api_/bunq/check-status")({
           return Response.json({ error: "invalid_payment" }, { status: 400 });
         }
 
-        const { readSession, readCookie, SESSION_COOKIE } =
-          await import("@/lib/auth/session.server");
-        const user = await readSession(
-          readCookie(request.headers.get("cookie"), SESSION_COOKIE),
-        ).catch(() => null);
+        const { currentUser } = await import("@/lib/auth/session.server");
+        const user = await currentUser().catch(() => null);
         if (!user) return Response.json({ error: "unauthorized" }, { status: 401 });
 
         const { sql } = await import("@/lib/neon");
