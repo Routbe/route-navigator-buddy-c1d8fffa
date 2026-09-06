@@ -1,3 +1,5 @@
 import { neonAuth } from "@/lib/neon";
-const bad: number = neonAuth as unknown as typeof neonAuth extends never ? number : never;
-export const x = bad;
+export const a: number = neonAuth.signIn;
+export const b: number = neonAuth.signIn.social;
+export const c: number = neonAuth.signIn.magicLink;
+export const d: number = neonAuth.signUp.email;
