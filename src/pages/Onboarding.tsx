@@ -173,7 +173,7 @@ export default function Onboarding() {
   }, [user, prefilled, nav]);
 
   useEffect(() => {
-    if (!authLoading && !user) nav("/auth", { replace: true });
+    if (!authLoading && !user) nav("/auth/sign-in", { replace: true });
   }, [authLoading, user, nav]);
 
   // 2. Live beschikbaarheidscheck tegen Neon Postgres (debounced).

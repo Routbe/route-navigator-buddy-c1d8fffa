@@ -51,10 +51,8 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AccountAccountViewRouteImport } from './routes/account.$accountView'
 import { Route as ApiClaimRootRouteImport } from './routes/api/claim-root'
 import { Route as ApiPaymentStatusRouteImport } from './routes/api_.payment-status'
+import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AuthAuthViewRouteImport } from './routes/auth.$authView'
-import { Route as AuthCallbackRouteImport } from './routes/auth_.callback'
-import { Route as AuthGitlabRouteImport } from './routes/auth_.gitlab'
-import { Route as AuthVerifyRouteImport } from './routes/auth_.verify'
 import { Route as DevEmailsRouteImport } from './routes/dev.emails'
 import { Route as GiftCodeRouteImport } from './routes/gift_.$code'
 import { Route as RUsernameRouteImport } from './routes/r.$username'
@@ -71,7 +69,7 @@ import { Route as AuthenticatedDashboardBlueskyRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardDomainsRouteImport } from './routes/_authenticated/dashboard.domains'
 import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard.profile'
 import { Route as AuthenticatedDashboardRoutesRouteImport } from './routes/_authenticated/dashboard.routes'
-import { Route as ApiAuthProviderRouteImport } from './routes/api_.auth.$provider'
+import { Route as ApiAuthSplatRouteImport } from './routes/api_.auth.$'
 import { Route as ApiBunqCheckStatusRouteImport } from './routes/api_.bunq.check-status'
 import { Route as ApiProfilesCheckHandleRouteImport } from './routes/api_.profiles.check-handle'
 import { Route as ApiPublicAvatarRouteImport } from './routes/api_.public.avatar'
@@ -79,14 +77,9 @@ import { Route as ApiPublicBrandLogoRouteImport } from './routes/api_.public.bra
 import { Route as ApiPublicGalleryMediaRouteImport } from './routes/api_.public.gallery-media'
 import { Route as ApiPublicHealthRouteImport } from './routes/api_.public.health'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api_.public.stripe-webhook'
-import { Route as AuthGitlabCallbackRouteImport } from './routes/auth_.gitlab.callback'
-import { Route as AuthMastodonCallbackRouteImport } from './routes/auth_.mastodon.callback'
 import { Route as UUsernameSlugRouteImport } from './routes/u.$username.$slug'
 import { Route as UUsernameDonateRouteImport } from './routes/u.$username.donate'
 import { Route as UUsernameTipRouteImport } from './routes/u.$username.tip'
-import { Route as ApiAuthProviderCallbackRouteImport } from './routes/api_.auth.$provider.callback'
-import { Route as ApiPublicAuthProviderRouteImport } from './routes/api_.public.auth.$provider'
-import { Route as ApiPublicAuthMagicLinkRouteImport } from './routes/api_.public.auth.magic-link'
 import { Route as ApiPublicBadgeHandleRouteImport } from './routes/api_.public.badge.$handle'
 import { Route as ApiPublicCronCheckDnsRouteImport } from './routes/api_.public.cron.check-dns'
 import { Route as ApiPublicCronScanTransfersRouteImport } from './routes/api_.public.cron.scan-transfers'
@@ -95,7 +88,6 @@ import { Route as ApiPublicCronSyncFollowersRouteImport } from './routes/api_.pu
 import { Route as ApiPublicCronSyncSocialsRouteImport } from './routes/api_.public.cron.sync-socials'
 import { Route as ApiPublicOgHandleRouteImport } from './routes/api_.public.og.$handle'
 import { Route as ApiPublicWebhooksBankingRouteImport } from './routes/api_.public.webhooks.banking'
-import { Route as ApiPublicAuthProviderCallbackRouteImport } from './routes/api_.public.auth.$provider.callback'
 import { Route as ApiPublicBookingsIdActionRouteImport } from './routes/api_.public.bookings.$id.$action'
 
 const IndexRoute = IndexRouteImport.update({
@@ -307,25 +299,15 @@ const ApiPaymentStatusRoute = ApiPaymentStatusRouteImport.update({
   path: '/api/payment-status',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthAuthViewRoute = AuthAuthViewRouteImport.update({
   id: '/$authView',
   path: '/$authView',
   getParentRoute: () => AuthRoute,
-} as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth_/callback',
-  path: '/auth/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthGitlabRoute = AuthGitlabRouteImport.update({
-  id: '/auth_/gitlab',
-  path: '/auth/gitlab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthVerifyRoute = AuthVerifyRouteImport.update({
-  id: '/auth_/verify',
-  path: '/auth/verify',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const DevEmailsRoute = DevEmailsRouteImport.update({
   id: '/dev/emails',
@@ -415,9 +397,9 @@ const AuthenticatedDashboardRoutesRoute =
     path: '/routes',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
-const ApiAuthProviderRoute = ApiAuthProviderRouteImport.update({
-  id: '/api_/auth/$provider',
-  path: '/api/auth/$provider',
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api_/auth/$',
+  path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiBunqCheckStatusRoute = ApiBunqCheckStatusRouteImport.update({
@@ -455,16 +437,6 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   path: '/api/public/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthGitlabCallbackRoute = AuthGitlabCallbackRouteImport.update({
-  id: '/callback',
-  path: '/callback',
-  getParentRoute: () => AuthGitlabRoute,
-} as any)
-const AuthMastodonCallbackRoute = AuthMastodonCallbackRouteImport.update({
-  id: '/auth_/mastodon/callback',
-  path: '/auth/mastodon/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const UUsernameSlugRoute = UUsernameSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -479,21 +451,6 @@ const UUsernameTipRoute = UUsernameTipRouteImport.update({
   id: '/tip',
   path: '/tip',
   getParentRoute: () => UUsernameRoute,
-} as any)
-const ApiAuthProviderCallbackRoute = ApiAuthProviderCallbackRouteImport.update({
-  id: '/callback',
-  path: '/callback',
-  getParentRoute: () => ApiAuthProviderRoute,
-} as any)
-const ApiPublicAuthProviderRoute = ApiPublicAuthProviderRouteImport.update({
-  id: '/api_/public/auth/$provider',
-  path: '/api/public/auth/$provider',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicAuthMagicLinkRoute = ApiPublicAuthMagicLinkRouteImport.update({
-  id: '/api_/public/auth/magic-link',
-  path: '/api/public/auth/magic-link',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicBadgeHandleRoute = ApiPublicBadgeHandleRouteImport.update({
   id: '/api_/public/badge/$handle',
@@ -539,12 +496,6 @@ const ApiPublicWebhooksBankingRoute =
     id: '/api_/public/webhooks/banking',
     path: '/api/public/webhooks/banking',
     getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicAuthProviderCallbackRoute =
-  ApiPublicAuthProviderCallbackRouteImport.update({
-    id: '/callback',
-    path: '/callback',
-    getParentRoute: () => ApiPublicAuthProviderRoute,
   } as any)
 const ApiPublicBookingsIdActionRoute =
   ApiPublicBookingsIdActionRouteImport.update({
@@ -596,15 +547,13 @@ export interface FileRoutesByFullPath {
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api/payment-status': typeof ApiPaymentStatusRoute
   '/auth/$authView': typeof AuthAuthViewRoute
-  '/auth/callback': typeof AuthCallbackRoute
-  '/auth/gitlab': typeof AuthGitlabRouteWithChildren
-  '/auth/verify': typeof AuthVerifyRoute
   '/dev/emails': typeof DevEmailsRoute
   '/gift/$code': typeof GiftCodeRoute
   '/r/$username': typeof RUsernameRoute
   '/s/$slug': typeof SSlugRoute
   '/stats/$token': typeof StatsTokenRoute
   '/u/$username': typeof UUsernameRouteWithChildren
+  '/auth/': typeof AuthIndexRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/gift-cards': typeof AuthenticatedAdminGiftCardsRoute
   '/admin/ops': typeof AuthenticatedAdminOpsRoute
@@ -615,7 +564,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/domains': typeof AuthenticatedDashboardDomainsRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/dashboard/routes': typeof AuthenticatedDashboardRoutesRoute
-  '/api/auth/$provider': typeof ApiAuthProviderRouteWithChildren
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/bunq/check-status': typeof ApiBunqCheckStatusRoute
   '/api/profiles/check-handle': typeof ApiProfilesCheckHandleRoute
   '/api/public/avatar': typeof ApiPublicAvatarRoute
@@ -623,14 +572,9 @@ export interface FileRoutesByFullPath {
   '/api/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
-  '/auth/gitlab/callback': typeof AuthGitlabCallbackRoute
-  '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
   '/u/$username/donate': typeof UUsernameDonateRoute
   '/u/$username/tip': typeof UUsernameTipRoute
-  '/api/auth/$provider/callback': typeof ApiAuthProviderCallbackRoute
-  '/api/public/auth/$provider': typeof ApiPublicAuthProviderRouteWithChildren
-  '/api/public/auth/magic-link': typeof ApiPublicAuthMagicLinkRoute
   '/api/public/badge/$handle': typeof ApiPublicBadgeHandleRoute
   '/api/public/cron/check-dns': typeof ApiPublicCronCheckDnsRoute
   '/api/public/cron/scan-transfers': typeof ApiPublicCronScanTransfersRoute
@@ -639,7 +583,6 @@ export interface FileRoutesByFullPath {
   '/api/public/cron/sync-socials': typeof ApiPublicCronSyncSocialsRoute
   '/api/public/og/$handle': typeof ApiPublicOgHandleRoute
   '/api/public/webhooks/banking': typeof ApiPublicWebhooksBankingRoute
-  '/api/public/auth/$provider/callback': typeof ApiPublicAuthProviderCallbackRoute
   '/api/public/bookings/$id/$action': typeof ApiPublicBookingsIdActionRoute
 }
 export interface FileRoutesByTo {
@@ -647,7 +590,6 @@ export interface FileRoutesByTo {
   '/$username': typeof UsernameRouteWithChildren
   '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
-  '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
   '/claim': typeof ClaimRoute
@@ -685,15 +627,13 @@ export interface FileRoutesByTo {
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api/payment-status': typeof ApiPaymentStatusRoute
   '/auth/$authView': typeof AuthAuthViewRoute
-  '/auth/callback': typeof AuthCallbackRoute
-  '/auth/gitlab': typeof AuthGitlabRouteWithChildren
-  '/auth/verify': typeof AuthVerifyRoute
   '/dev/emails': typeof DevEmailsRoute
   '/gift/$code': typeof GiftCodeRoute
   '/r/$username': typeof RUsernameRoute
   '/s/$slug': typeof SSlugRoute
   '/stats/$token': typeof StatsTokenRoute
   '/u/$username': typeof UUsernameRouteWithChildren
+  '/auth': typeof AuthIndexRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/gift-cards': typeof AuthenticatedAdminGiftCardsRoute
   '/admin/ops': typeof AuthenticatedAdminOpsRoute
@@ -704,7 +644,7 @@ export interface FileRoutesByTo {
   '/dashboard/domains': typeof AuthenticatedDashboardDomainsRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/dashboard/routes': typeof AuthenticatedDashboardRoutesRoute
-  '/api/auth/$provider': typeof ApiAuthProviderRouteWithChildren
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/bunq/check-status': typeof ApiBunqCheckStatusRoute
   '/api/profiles/check-handle': typeof ApiProfilesCheckHandleRoute
   '/api/public/avatar': typeof ApiPublicAvatarRoute
@@ -712,14 +652,9 @@ export interface FileRoutesByTo {
   '/api/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
-  '/auth/gitlab/callback': typeof AuthGitlabCallbackRoute
-  '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
   '/u/$username/donate': typeof UUsernameDonateRoute
   '/u/$username/tip': typeof UUsernameTipRoute
-  '/api/auth/$provider/callback': typeof ApiAuthProviderCallbackRoute
-  '/api/public/auth/$provider': typeof ApiPublicAuthProviderRouteWithChildren
-  '/api/public/auth/magic-link': typeof ApiPublicAuthMagicLinkRoute
   '/api/public/badge/$handle': typeof ApiPublicBadgeHandleRoute
   '/api/public/cron/check-dns': typeof ApiPublicCronCheckDnsRoute
   '/api/public/cron/scan-transfers': typeof ApiPublicCronScanTransfersRoute
@@ -728,7 +663,6 @@ export interface FileRoutesByTo {
   '/api/public/cron/sync-socials': typeof ApiPublicCronSyncSocialsRoute
   '/api/public/og/$handle': typeof ApiPublicOgHandleRoute
   '/api/public/webhooks/banking': typeof ApiPublicWebhooksBankingRoute
-  '/api/public/auth/$provider/callback': typeof ApiPublicAuthProviderCallbackRoute
   '/api/public/bookings/$id/$action': typeof ApiPublicBookingsIdActionRoute
 }
 export interface FileRoutesById {
@@ -776,15 +710,13 @@ export interface FileRoutesById {
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api_/payment-status': typeof ApiPaymentStatusRoute
   '/auth/$authView': typeof AuthAuthViewRoute
-  '/auth_/callback': typeof AuthCallbackRoute
-  '/auth_/gitlab': typeof AuthGitlabRouteWithChildren
-  '/auth_/verify': typeof AuthVerifyRoute
   '/dev/emails': typeof DevEmailsRoute
   '/gift_/$code': typeof GiftCodeRoute
   '/r/$username': typeof RUsernameRoute
   '/s/$slug': typeof SSlugRoute
   '/stats/$token': typeof StatsTokenRoute
   '/u/$username': typeof UUsernameRouteWithChildren
+  '/auth/': typeof AuthIndexRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
   '/_authenticated/admin/gift-cards': typeof AuthenticatedAdminGiftCardsRoute
   '/_authenticated/admin/ops': typeof AuthenticatedAdminOpsRoute
@@ -795,7 +727,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/domains': typeof AuthenticatedDashboardDomainsRoute
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/_authenticated/dashboard/routes': typeof AuthenticatedDashboardRoutesRoute
-  '/api_/auth/$provider': typeof ApiAuthProviderRouteWithChildren
+  '/api_/auth/$': typeof ApiAuthSplatRoute
   '/api_/bunq/check-status': typeof ApiBunqCheckStatusRoute
   '/api_/profiles/check-handle': typeof ApiProfilesCheckHandleRoute
   '/api_/public/avatar': typeof ApiPublicAvatarRoute
@@ -803,14 +735,9 @@ export interface FileRoutesById {
   '/api_/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api_/public/health': typeof ApiPublicHealthRoute
   '/api_/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
-  '/auth_/gitlab/callback': typeof AuthGitlabCallbackRoute
-  '/auth_/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
   '/u/$username/donate': typeof UUsernameDonateRoute
   '/u/$username/tip': typeof UUsernameTipRoute
-  '/api_/auth/$provider/callback': typeof ApiAuthProviderCallbackRoute
-  '/api_/public/auth/$provider': typeof ApiPublicAuthProviderRouteWithChildren
-  '/api_/public/auth/magic-link': typeof ApiPublicAuthMagicLinkRoute
   '/api_/public/badge/$handle': typeof ApiPublicBadgeHandleRoute
   '/api_/public/cron/check-dns': typeof ApiPublicCronCheckDnsRoute
   '/api_/public/cron/scan-transfers': typeof ApiPublicCronScanTransfersRoute
@@ -819,7 +746,6 @@ export interface FileRoutesById {
   '/api_/public/cron/sync-socials': typeof ApiPublicCronSyncSocialsRoute
   '/api_/public/og/$handle': typeof ApiPublicOgHandleRoute
   '/api_/public/webhooks/banking': typeof ApiPublicWebhooksBankingRoute
-  '/api_/public/auth/$provider/callback': typeof ApiPublicAuthProviderCallbackRoute
   '/api_/public/bookings/$id/$action': typeof ApiPublicBookingsIdActionRoute
 }
 export interface FileRouteTypes {
@@ -867,15 +793,13 @@ export interface FileRouteTypes {
     | '/api/claim-root'
     | '/api/payment-status'
     | '/auth/$authView'
-    | '/auth/callback'
-    | '/auth/gitlab'
-    | '/auth/verify'
     | '/dev/emails'
     | '/gift/$code'
     | '/r/$username'
     | '/s/$slug'
     | '/stats/$token'
     | '/u/$username'
+    | '/auth/'
     | '/admin/contact'
     | '/admin/gift-cards'
     | '/admin/ops'
@@ -886,7 +810,7 @@ export interface FileRouteTypes {
     | '/dashboard/domains'
     | '/dashboard/profile'
     | '/dashboard/routes'
-    | '/api/auth/$provider'
+    | '/api/auth/$'
     | '/api/bunq/check-status'
     | '/api/profiles/check-handle'
     | '/api/public/avatar'
@@ -894,14 +818,9 @@ export interface FileRouteTypes {
     | '/api/public/gallery-media'
     | '/api/public/health'
     | '/api/public/stripe-webhook'
-    | '/auth/gitlab/callback'
-    | '/auth/mastodon/callback'
     | '/u/$username/$slug'
     | '/u/$username/donate'
     | '/u/$username/tip'
-    | '/api/auth/$provider/callback'
-    | '/api/public/auth/$provider'
-    | '/api/public/auth/magic-link'
     | '/api/public/badge/$handle'
     | '/api/public/cron/check-dns'
     | '/api/public/cron/scan-transfers'
@@ -910,7 +829,6 @@ export interface FileRouteTypes {
     | '/api/public/cron/sync-socials'
     | '/api/public/og/$handle'
     | '/api/public/webhooks/banking'
-    | '/api/public/auth/$provider/callback'
     | '/api/public/bookings/$id/$action'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -918,7 +836,6 @@ export interface FileRouteTypes {
     | '/$username'
     | '/about'
     | '/api'
-    | '/auth'
     | '/batch'
     | '/card'
     | '/claim'
@@ -956,15 +873,13 @@ export interface FileRouteTypes {
     | '/api/claim-root'
     | '/api/payment-status'
     | '/auth/$authView'
-    | '/auth/callback'
-    | '/auth/gitlab'
-    | '/auth/verify'
     | '/dev/emails'
     | '/gift/$code'
     | '/r/$username'
     | '/s/$slug'
     | '/stats/$token'
     | '/u/$username'
+    | '/auth'
     | '/admin/contact'
     | '/admin/gift-cards'
     | '/admin/ops'
@@ -975,7 +890,7 @@ export interface FileRouteTypes {
     | '/dashboard/domains'
     | '/dashboard/profile'
     | '/dashboard/routes'
-    | '/api/auth/$provider'
+    | '/api/auth/$'
     | '/api/bunq/check-status'
     | '/api/profiles/check-handle'
     | '/api/public/avatar'
@@ -983,14 +898,9 @@ export interface FileRouteTypes {
     | '/api/public/gallery-media'
     | '/api/public/health'
     | '/api/public/stripe-webhook'
-    | '/auth/gitlab/callback'
-    | '/auth/mastodon/callback'
     | '/u/$username/$slug'
     | '/u/$username/donate'
     | '/u/$username/tip'
-    | '/api/auth/$provider/callback'
-    | '/api/public/auth/$provider'
-    | '/api/public/auth/magic-link'
     | '/api/public/badge/$handle'
     | '/api/public/cron/check-dns'
     | '/api/public/cron/scan-transfers'
@@ -999,7 +909,6 @@ export interface FileRouteTypes {
     | '/api/public/cron/sync-socials'
     | '/api/public/og/$handle'
     | '/api/public/webhooks/banking'
-    | '/api/public/auth/$provider/callback'
     | '/api/public/bookings/$id/$action'
   id:
     | '__root__'
@@ -1046,15 +955,13 @@ export interface FileRouteTypes {
     | '/api/claim-root'
     | '/api_/payment-status'
     | '/auth/$authView'
-    | '/auth_/callback'
-    | '/auth_/gitlab'
-    | '/auth_/verify'
     | '/dev/emails'
     | '/gift_/$code'
     | '/r/$username'
     | '/s/$slug'
     | '/stats/$token'
     | '/u/$username'
+    | '/auth/'
     | '/_authenticated/admin/contact'
     | '/_authenticated/admin/gift-cards'
     | '/_authenticated/admin/ops'
@@ -1065,7 +972,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/domains'
     | '/_authenticated/dashboard/profile'
     | '/_authenticated/dashboard/routes'
-    | '/api_/auth/$provider'
+    | '/api_/auth/$'
     | '/api_/bunq/check-status'
     | '/api_/profiles/check-handle'
     | '/api_/public/avatar'
@@ -1073,14 +980,9 @@ export interface FileRouteTypes {
     | '/api_/public/gallery-media'
     | '/api_/public/health'
     | '/api_/public/stripe-webhook'
-    | '/auth_/gitlab/callback'
-    | '/auth_/mastodon/callback'
     | '/u/$username/$slug'
     | '/u/$username/donate'
     | '/u/$username/tip'
-    | '/api_/auth/$provider/callback'
-    | '/api_/public/auth/$provider'
-    | '/api_/public/auth/magic-link'
     | '/api_/public/badge/$handle'
     | '/api_/public/cron/check-dns'
     | '/api_/public/cron/scan-transfers'
@@ -1089,7 +991,6 @@ export interface FileRouteTypes {
     | '/api_/public/cron/sync-socials'
     | '/api_/public/og/$handle'
     | '/api_/public/webhooks/banking'
-    | '/api_/public/auth/$provider/callback'
     | '/api_/public/bookings/$id/$action'
   fileRoutesById: FileRoutesById
 }
@@ -1127,16 +1028,13 @@ export interface RootRouteChildren {
   DotwellKnownAtprotoDidRoute: typeof DotwellKnownAtprotoDidRoute
   AccountAccountViewRoute: typeof AccountAccountViewRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
-  AuthCallbackRoute: typeof AuthCallbackRoute
-  AuthGitlabRoute: typeof AuthGitlabRouteWithChildren
-  AuthVerifyRoute: typeof AuthVerifyRoute
   DevEmailsRoute: typeof DevEmailsRoute
   GiftCodeRoute: typeof GiftCodeRoute
   RUsernameRoute: typeof RUsernameRoute
   SSlugRoute: typeof SSlugRoute
   StatsTokenRoute: typeof StatsTokenRoute
   UUsernameRoute: typeof UUsernameRouteWithChildren
-  ApiAuthProviderRoute: typeof ApiAuthProviderRouteWithChildren
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiBunqCheckStatusRoute: typeof ApiBunqCheckStatusRoute
   ApiProfilesCheckHandleRoute: typeof ApiProfilesCheckHandleRoute
   ApiPublicAvatarRoute: typeof ApiPublicAvatarRoute
@@ -1144,9 +1042,6 @@ export interface RootRouteChildren {
   ApiPublicGalleryMediaRoute: typeof ApiPublicGalleryMediaRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
-  AuthMastodonCallbackRoute: typeof AuthMastodonCallbackRoute
-  ApiPublicAuthProviderRoute: typeof ApiPublicAuthProviderRouteWithChildren
-  ApiPublicAuthMagicLinkRoute: typeof ApiPublicAuthMagicLinkRoute
   ApiPublicBadgeHandleRoute: typeof ApiPublicBadgeHandleRoute
   ApiPublicCronCheckDnsRoute: typeof ApiPublicCronCheckDnsRoute
   ApiPublicCronScanTransfersRoute: typeof ApiPublicCronScanTransfersRoute
@@ -1454,33 +1349,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPaymentStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/': {
+      id: '/auth/'
+      path: '/'
+      fullPath: '/auth/'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/auth/$authView': {
       id: '/auth/$authView'
       path: '/$authView'
       fullPath: '/auth/$authView'
       preLoaderRoute: typeof AuthAuthViewRouteImport
       parentRoute: typeof AuthRoute
-    }
-    '/auth_/callback': {
-      id: '/auth_/callback'
-      path: '/auth/callback'
-      fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth_/gitlab': {
-      id: '/auth_/gitlab'
-      path: '/auth/gitlab'
-      fullPath: '/auth/gitlab'
-      preLoaderRoute: typeof AuthGitlabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth_/verify': {
-      id: '/auth_/verify'
-      path: '/auth/verify'
-      fullPath: '/auth/verify'
-      preLoaderRoute: typeof AuthVerifyRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/dev/emails': {
       id: '/dev/emails'
@@ -1594,11 +1475,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRoutesRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/api_/auth/$provider': {
-      id: '/api_/auth/$provider'
-      path: '/api/auth/$provider'
-      fullPath: '/api/auth/$provider'
-      preLoaderRoute: typeof ApiAuthProviderRouteImport
+    '/api_/auth/$': {
+      id: '/api_/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api_/bunq/check-status': {
@@ -1650,20 +1531,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth_/gitlab/callback': {
-      id: '/auth_/gitlab/callback'
-      path: '/callback'
-      fullPath: '/auth/gitlab/callback'
-      preLoaderRoute: typeof AuthGitlabCallbackRouteImport
-      parentRoute: typeof AuthGitlabRoute
-    }
-    '/auth_/mastodon/callback': {
-      id: '/auth_/mastodon/callback'
-      path: '/auth/mastodon/callback'
-      fullPath: '/auth/mastodon/callback'
-      preLoaderRoute: typeof AuthMastodonCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/u/$username/$slug': {
       id: '/u/$username/$slug'
       path: '/$slug'
@@ -1684,27 +1551,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/u/$username/tip'
       preLoaderRoute: typeof UUsernameTipRouteImport
       parentRoute: typeof UUsernameRoute
-    }
-    '/api_/auth/$provider/callback': {
-      id: '/api_/auth/$provider/callback'
-      path: '/callback'
-      fullPath: '/api/auth/$provider/callback'
-      preLoaderRoute: typeof ApiAuthProviderCallbackRouteImport
-      parentRoute: typeof ApiAuthProviderRoute
-    }
-    '/api_/public/auth/$provider': {
-      id: '/api_/public/auth/$provider'
-      path: '/api/public/auth/$provider'
-      fullPath: '/api/public/auth/$provider'
-      preLoaderRoute: typeof ApiPublicAuthProviderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api_/public/auth/magic-link': {
-      id: '/api_/public/auth/magic-link'
-      path: '/api/public/auth/magic-link'
-      fullPath: '/api/public/auth/magic-link'
-      preLoaderRoute: typeof ApiPublicAuthMagicLinkRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/api_/public/badge/$handle': {
       id: '/api_/public/badge/$handle'
@@ -1761,13 +1607,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/public/webhooks/banking'
       preLoaderRoute: typeof ApiPublicWebhooksBankingRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/api_/public/auth/$provider/callback': {
-      id: '/api_/public/auth/$provider/callback'
-      path: '/callback'
-      fullPath: '/api/public/auth/$provider/callback'
-      preLoaderRoute: typeof ApiPublicAuthProviderCallbackRouteImport
-      parentRoute: typeof ApiPublicAuthProviderRoute
     }
     '/api_/public/bookings/$id/$action': {
       id: '/api_/public/bookings/$id/$action'
@@ -1868,25 +1707,15 @@ const ApiRouteWithChildren = ApiRoute._addFileChildren(ApiRouteChildren)
 
 interface AuthRouteChildren {
   AuthAuthViewRoute: typeof AuthAuthViewRoute
+  AuthIndexRoute: typeof AuthIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthAuthViewRoute: AuthAuthViewRoute,
+  AuthIndexRoute: AuthIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
-interface AuthGitlabRouteChildren {
-  AuthGitlabCallbackRoute: typeof AuthGitlabCallbackRoute
-}
-
-const AuthGitlabRouteChildren: AuthGitlabRouteChildren = {
-  AuthGitlabCallbackRoute: AuthGitlabCallbackRoute,
-}
-
-const AuthGitlabRouteWithChildren = AuthGitlabRoute._addFileChildren(
-  AuthGitlabRouteChildren,
-)
 
 interface UUsernameRouteChildren {
   UUsernameSlugRoute: typeof UUsernameSlugRoute
@@ -1903,31 +1732,6 @@ const UUsernameRouteChildren: UUsernameRouteChildren = {
 const UUsernameRouteWithChildren = UUsernameRoute._addFileChildren(
   UUsernameRouteChildren,
 )
-
-interface ApiAuthProviderRouteChildren {
-  ApiAuthProviderCallbackRoute: typeof ApiAuthProviderCallbackRoute
-}
-
-const ApiAuthProviderRouteChildren: ApiAuthProviderRouteChildren = {
-  ApiAuthProviderCallbackRoute: ApiAuthProviderCallbackRoute,
-}
-
-const ApiAuthProviderRouteWithChildren = ApiAuthProviderRoute._addFileChildren(
-  ApiAuthProviderRouteChildren,
-)
-
-interface ApiPublicAuthProviderRouteChildren {
-  ApiPublicAuthProviderCallbackRoute: typeof ApiPublicAuthProviderCallbackRoute
-}
-
-const ApiPublicAuthProviderRouteChildren: ApiPublicAuthProviderRouteChildren = {
-  ApiPublicAuthProviderCallbackRoute: ApiPublicAuthProviderCallbackRoute,
-}
-
-const ApiPublicAuthProviderRouteWithChildren =
-  ApiPublicAuthProviderRoute._addFileChildren(
-    ApiPublicAuthProviderRouteChildren,
-  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -1963,16 +1767,13 @@ const rootRouteChildren: RootRouteChildren = {
   DotwellKnownAtprotoDidRoute: DotwellKnownAtprotoDidRoute,
   AccountAccountViewRoute: AccountAccountViewRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
-  AuthCallbackRoute: AuthCallbackRoute,
-  AuthGitlabRoute: AuthGitlabRouteWithChildren,
-  AuthVerifyRoute: AuthVerifyRoute,
   DevEmailsRoute: DevEmailsRoute,
   GiftCodeRoute: GiftCodeRoute,
   RUsernameRoute: RUsernameRoute,
   SSlugRoute: SSlugRoute,
   StatsTokenRoute: StatsTokenRoute,
   UUsernameRoute: UUsernameRouteWithChildren,
-  ApiAuthProviderRoute: ApiAuthProviderRouteWithChildren,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiBunqCheckStatusRoute: ApiBunqCheckStatusRoute,
   ApiProfilesCheckHandleRoute: ApiProfilesCheckHandleRoute,
   ApiPublicAvatarRoute: ApiPublicAvatarRoute,
@@ -1980,9 +1781,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicGalleryMediaRoute: ApiPublicGalleryMediaRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
-  AuthMastodonCallbackRoute: AuthMastodonCallbackRoute,
-  ApiPublicAuthProviderRoute: ApiPublicAuthProviderRouteWithChildren,
-  ApiPublicAuthMagicLinkRoute: ApiPublicAuthMagicLinkRoute,
   ApiPublicBadgeHandleRoute: ApiPublicBadgeHandleRoute,
   ApiPublicCronCheckDnsRoute: ApiPublicCronCheckDnsRoute,
   ApiPublicCronScanTransfersRoute: ApiPublicCronScanTransfersRoute,

@@ -1,20 +1,18 @@
 import { createMiddleware } from "@tanstack/react-start";
-import { getRequestHeader } from "@tanstack/react-start/server";
 
 /**
- * Neon-native replacement for the old Postgres auth middleware.
+ * Server-function auth for ROUT.
  *
- * Reads the httpOnly session cookie, resolves it against `public.user_sessions`
- * and puts `userId` plus the user record on the server-function context.
+ * The session comes from Neon Auth (read through the same-origin proxy) and is
+ * bridged onto the existing `public.users` row, so `userId` on the context is
+ * the same id every table already references.
  */
 export const requireAuth = createMiddleware({ type: "function" }).server(async ({ next }) => {
-  const { readSession, readCookie, SESSION_COOKIE } = await import("./session.server");
-  const token = readCookie(getRequestHeader("cookie"), SESSION_COOKIE);
-  const user = await readSession(token);
+  const { currentUser } = await import("./session.server");
+  const user = await currentUser();
   if (!user) throw new Error("Unauthorized");
   const { createUserDb } = await import("@/lib/db/user-client.server");
   const db = createUserDb(user.id);
-  // Legacy `claims` shape (JWT-style) so migrated call sites keep working.
   const claims = {
     sub: user.id,
     email: user.email,
@@ -26,9 +24,8 @@ export const requireAuth = createMiddleware({ type: "function" }).server(async (
 
 /** Same lookup, but anonymous callers are allowed through with `userId: null`. */
 export const optionalAuth = createMiddleware({ type: "function" }).server(async ({ next }) => {
-  const { readSession, readCookie, SESSION_COOKIE } = await import("./session.server");
-  const token = readCookie(getRequestHeader("cookie"), SESSION_COOKIE);
-  const user = await readSession(token).catch(() => null);
+  const { currentUser } = await import("./session.server");
+  const user = await currentUser().catch(() => null);
   const { createUserDb } = await import("@/lib/db/user-client.server");
   const db = user ? createUserDb(user.id) : null;
   const claims = user

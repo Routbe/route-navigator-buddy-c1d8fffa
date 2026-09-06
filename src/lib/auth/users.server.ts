@@ -9,12 +9,7 @@ import {
 import type { EmailCategory } from "@/emails/template-ids";
 
 import { generateToken, hashPassword, hashToken, verifyPassword } from "./password.server";
-import {
-  createSession,
-  revokeAllSessions,
-  toSessionUser,
-  type SessionUser,
-} from "./session.server";
+import { toSessionUser, type SessionUser } from "./session.server";
 
 /**
  * Identity management on Neon: sign-up, sign-in, magic links, password reset
@@ -95,26 +90,6 @@ export async function createUser(input: {
   return created;
 }
 
-export async function signInWithPassword(
-  email: string,
-  password: string,
-  meta: {
-    userAgent?: string | null;
-  } = {},
-) {
-  const row = await findUserByEmail(email);
-  // Always run a hash comparison so a missing account and a wrong password cost the same.
-  const ok = await verifyPassword(password, (row?.["password_hash"] as string | null) ?? null);
-  if (!row || !ok) throw new AuthError("invalid_credentials", "E-mail or password is incorrect.");
-  if (row["is_disabled"]) throw new AuthError("user_disabled", "This account is disabled.");
-
-  const user = toSessionUser(row);
-  const { ensureOwnerAdmin } = await import("./owner-admin.server");
-  await ensureOwnerAdmin(user.id, user.email);
-  const session = await createSession(user.id, { userAgent: meta.userAgent ?? null });
-  return { user, session };
-}
-
 export async function updateUserMetadata(userId: string, patch: Record<string, unknown>) {
   const rows = (await sql`
     update public.users
@@ -131,7 +106,6 @@ export async function changePassword(userId: string, newPassword: string) {
   assertPassword(newPassword);
   const hash = await hashPassword(newPassword);
   await sql`update public.users set password_hash = ${hash}, updated_at = now() where id = ${userId}`;
-  await revokeAllSessions(userId);
 }
 
 export async function changeEmail(userId: string, newEmail: string) {
@@ -322,40 +296,6 @@ export async function requestEmailCode(rawEmail: string, origin: string) {
 }
 
 /** Consumes a 6-digit code and opens a session for the owning member. */
-export async function verifyEmailCode(
-  rawEmail: string,
-  rawCode: string,
-  meta: {
-    userAgent?: string | null;
-  } = {},
-) {
-  const email = assertEmail(rawEmail);
-  const code = rawCode.replace(/\D/g, "");
-  const row = await findUserByEmail(email);
-  if (!row || code.length !== 6)
-    throw new AuthError("invalid_token", "This code is invalid or has expired.");
-
-  const userId = row["id"] as string;
-  const codeHash = await hashToken(`${userId}:${code}`);
-  const rows = (await sql`
-    update public.auth_tokens set consumed_at = now()
-     where token_hash = ${codeHash}
-       and purpose = 'email_code'
-       and consumed_at is null
-       and expires_at > now()
-    returning id
-  `) as Row[];
-  if (!rows[0]) throw new AuthError("invalid_token", "This code is invalid or has expired.");
-  if (row["is_disabled"]) throw new AuthError("user_disabled", "This account is disabled.");
-
-  await confirmEmail(userId);
-  const user = toSessionUser(row);
-  const { ensureOwnerAdmin } = await import("./owner-admin.server");
-  await ensureOwnerAdmin(user.id, user.email);
-  const session = await createSession(userId, { userAgent: meta.userAgent ?? null });
-  return { user, session };
-}
-
 export async function requestPasswordReset(rawEmail: string, origin: string) {
   const email = assertEmail(rawEmail);
   const row = await findUserByEmail(email);

@@ -21,7 +21,7 @@ function AuthenticatedLayout() {
     if (loading || user) return;
     if (location.pathname.startsWith("/auth")) return;
     const redirect = `${location.pathname}${location.searchStr ?? ""}`;
-    navigate({ to: "/auth", search: { redirect }, replace: true } as never);
+    navigate({ to: "/auth/$authView", params: { authView: "sign-in" }, search: { redirect }, replace: true } as never);
   }, [loading, user, navigate, location.pathname, location.searchStr]);
 
   if (loading) {

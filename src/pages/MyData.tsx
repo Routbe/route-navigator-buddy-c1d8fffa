@@ -20,7 +20,7 @@ export default function MyData() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) nav("/auth", { replace: true });
+    if (!loading && !user) nav("/auth/sign-in", { replace: true });
   }, [user, loading, nav]);
 
   if (loading || !user) {

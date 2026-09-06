@@ -10,8 +10,8 @@ import type { QueryDescriptor, QueryResult, RpcDescriptor } from "./types";
  */
 
 async function currentUserId(): Promise<string | null> {
-  const { readSession, readCookie, SESSION_COOKIE } = await import("@/lib/auth/session.server");
-  const user = await readSession(readCookie(getRequestHeader("cookie"), SESSION_COOKIE)).catch(
+  const { currentUser } = await import("@/lib/auth/session.server");
+  const user = await currentUser().catch(
     () => null,
   );
   return user?.id ?? null;

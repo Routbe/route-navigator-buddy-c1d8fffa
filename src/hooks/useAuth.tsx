@@ -1,7 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useState, ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
-import { getSessionUser, signOut as signOutFn, type AuthUser } from "@/lib/auth.functions";
+import { getSessionUser, type AuthUser } from "@/lib/auth.functions";
+import { neonAuth } from "@/lib/neon";
 import { syncSignupProfile } from "@/lib/signup-profile.functions";
 import { claimReferral } from "@/lib/referral.functions";
 import { clearReferrer, readReferrer } from "@/lib/referral";
@@ -91,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await queryClient.cancelQueries();
     queryClient.clear();
     try {
-      await signOutFn();
+      await neonAuth.signOut();
     } catch {
       /* the cookie is cleared server-side; a network hiccup must not trap the user */
     }
@@ -99,7 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await router.invalidate();
     const path = typeof window === "undefined" ? "/" : window.location.pathname;
     if (PROTECTED_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`))) {
-      void router.navigate({ to: "/auth", search: {}, replace: true } as never);
+      void router.navigate({ to: "/auth/$authView", params: { authView: "sign-in" }, replace: true } as never);
     }
   }, [queryClient, router]);
 

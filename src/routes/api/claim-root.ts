@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { neon } from "@neondatabase/serverless";
 import { z } from "zod";
-import { readCookie, readSession, SESSION_COOKIE } from "@/lib/auth/session.server";
+import { currentUser } from "@/lib/auth/session.server";
 import { clientIp } from "@/lib/api-guard.server";
 import { enforceRateLimit, RateLimitError } from "@/lib/rate-limit.server";
 
@@ -51,10 +51,8 @@ export const Route = createFileRoute("/api/claim-root")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        // 1. Authenticatie — sessiecookie of bearer-token.
-        const bearer = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ?? null;
-        const cookieToken = readCookie(request.headers.get("cookie"), SESSION_COOKIE);
-        const session = await readSession(bearer || cookieToken);
+        // 1. Authenticatie — Neon Auth sessie.
+        const session = await currentUser();
         if (!session) {
           return Response.json({ error: "Unauthorized" }, { status: 401 });
         }

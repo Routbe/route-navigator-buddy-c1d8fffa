@@ -17,7 +17,7 @@ export default function Studio() {
   const [variant, setVariant] = useState<ProfileVariant>("verified");
 
   useEffect(() => {
-    if (!loading && !user) nav("/auth", { replace: true });
+    if (!loading && !user) nav("/auth/sign-in", { replace: true });
   }, [user, loading, nav]);
 
   return (

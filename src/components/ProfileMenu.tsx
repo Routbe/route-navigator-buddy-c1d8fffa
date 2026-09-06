@@ -91,10 +91,10 @@ export function ProfileMenu() {
     return (
       <div className="flex items-center gap-1.5">
         <Button asChild variant="ghost" size="sm">
-          <Link to="/auth">Sign in</Link>
+          <Link to="/auth/sign-in">Sign in</Link>
         </Button>
         <Button asChild size="sm" className="hidden sm:inline-flex">
-          <Link to="/auth?mode=signup">Sign up</Link>
+          <Link to="/auth/sign-up">Sign up</Link>
         </Button>
       </div>
     );

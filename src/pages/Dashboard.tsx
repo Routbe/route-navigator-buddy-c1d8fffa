@@ -89,7 +89,7 @@ export default function Dashboard() {
   const [recent, setRecent] = useState<RecentQr[] | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) nav("/auth", { replace: true });
+    if (!loading && !user) nav("/auth/sign-in", { replace: true });
   }, [user, loading, nav]);
 
   useEffect(() => {

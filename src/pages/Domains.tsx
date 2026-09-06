@@ -229,7 +229,7 @@ export default function Domains() {
   const [provider, setProvider] = useState<DnsProvider>("standard");
 
   useEffect(() => {
-    if (!authLoading && !user) nav("/auth", { replace: true });
+    if (!authLoading && !user) nav("/auth/sign-in", { replace: true });
   }, [user, authLoading, nav]);
 
   const load = useCallback(async () => {
