@@ -299,9 +299,9 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAuthViewRoute = AuthAuthViewRouteImport.update({
-  id: '/auth/$authView',
-  path: '/auth/$authView',
-  getParentRoute: () => rootRouteImport,
+  id: '/$authView',
+  path: '/$authView',
+  getParentRoute: () => AuthRoute,
 } as any)
 const DevEmailsRoute = DevEmailsRouteImport.update({
   id: '/dev/emails',
@@ -1017,7 +1017,6 @@ export interface RootRouteChildren {
   DotwellKnownAtprotoDidRoute: typeof DotwellKnownAtprotoDidRoute
   AccountAccountViewRoute: typeof AccountAccountViewRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
-  AuthAuthViewRoute: typeof AuthAuthViewRoute
   DevEmailsRoute: typeof DevEmailsRoute
   GiftCodeRoute: typeof GiftCodeRoute
   RUsernameRoute: typeof RUsernameRoute
@@ -1342,10 +1341,10 @@ declare module '@tanstack/react-router' {
     }
     '/auth/$authView': {
       id: '/auth/$authView'
-      path: '/auth/$authView'
+      path: '/$authView'
       fullPath: '/auth/$authView'
       preLoaderRoute: typeof AuthAuthViewRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/dev/emails': {
       id: '/dev/emails'
@@ -1738,7 +1737,6 @@ const rootRouteChildren: RootRouteChildren = {
   DotwellKnownAtprotoDidRoute: DotwellKnownAtprotoDidRoute,
   AccountAccountViewRoute: AccountAccountViewRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
-  AuthAuthViewRoute: AuthAuthViewRoute,
   DevEmailsRoute: DevEmailsRoute,
   GiftCodeRoute: GiftCodeRoute,
   RUsernameRoute: RUsernameRoute,
