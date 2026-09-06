@@ -14,6 +14,7 @@ import { Route as UsernameRouteImport } from './routes/$username'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApiRouteImport } from './routes/api'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BatchRouteImport } from './routes/batch'
 import { Route as CardRouteImport } from './routes/card'
 import { Route as ClaimRouteImport } from './routes/claim'
@@ -111,6 +112,11 @@ const AboutRoute = AboutRouteImport.update({
 const ApiRoute = ApiRouteImport.update({
   id: '/api',
   path: '/api',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BatchRoute = BatchRouteImport.update({
@@ -294,14 +300,14 @@ const ApiPaymentStatusRoute = ApiPaymentStatusRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
-  id: '/auth/',
-  path: '/auth/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthRoute,
 } as any)
 const AuthAuthViewRoute = AuthAuthViewRouteImport.update({
-  id: '/auth/$authView',
-  path: '/auth/$authView',
-  getParentRoute: () => rootRouteImport,
+  id: '/$authView',
+  path: '/$authView',
+  getParentRoute: () => AuthRoute,
 } as any)
 const DevEmailsRoute = DevEmailsRouteImport.update({
   id: '/dev/emails',
@@ -503,6 +509,7 @@ export interface FileRoutesByFullPath {
   '/$username': typeof UsernameRouteWithChildren
   '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
   '/claim': typeof ClaimRoute
@@ -665,6 +672,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
   '/claim': typeof ClaimRoute
@@ -747,6 +755,7 @@ export interface FileRouteTypes {
     | '/$username'
     | '/about'
     | '/api'
+    | '/auth'
     | '/batch'
     | '/card'
     | '/claim'
@@ -908,6 +917,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/api'
+    | '/auth'
     | '/batch'
     | '/card'
     | '/claim'
@@ -990,6 +1000,7 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   ApiRoute: typeof ApiRouteWithChildren
+  AuthRoute: typeof AuthRouteWithChildren
   BatchRoute: typeof BatchRoute
   CardRoute: typeof CardRoute
   ClaimRoute: typeof ClaimRoute
@@ -1017,14 +1028,12 @@ export interface RootRouteChildren {
   DotwellKnownAtprotoDidRoute: typeof DotwellKnownAtprotoDidRoute
   AccountAccountViewRoute: typeof AccountAccountViewRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
-  AuthAuthViewRoute: typeof AuthAuthViewRoute
   DevEmailsRoute: typeof DevEmailsRoute
   GiftCodeRoute: typeof GiftCodeRoute
   RUsernameRoute: typeof RUsernameRoute
   SSlugRoute: typeof SSlugRoute
   StatsTokenRoute: typeof StatsTokenRoute
   UUsernameRoute: typeof UUsernameRouteWithChildren
-  AuthIndexRoute: typeof AuthIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiBunqCheckStatusRoute: typeof ApiBunqCheckStatusRoute
   ApiProfilesCheckHandleRoute: typeof ApiProfilesCheckHandleRoute
@@ -1079,6 +1088,13 @@ declare module '@tanstack/react-router' {
       path: '/api'
       fullPath: '/api'
       preLoaderRoute: typeof ApiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/batch': {
@@ -1335,17 +1351,17 @@ declare module '@tanstack/react-router' {
     }
     '/auth/': {
       id: '/auth/'
-      path: '/auth'
+      path: '/'
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/auth/$authView': {
       id: '/auth/$authView'
-      path: '/auth/$authView'
+      path: '/$authView'
       fullPath: '/auth/$authView'
       preLoaderRoute: typeof AuthAuthViewRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/dev/emails': {
       id: '/dev/emails'
@@ -1689,6 +1705,18 @@ const ApiRouteChildren: ApiRouteChildren = {
 
 const ApiRouteWithChildren = ApiRoute._addFileChildren(ApiRouteChildren)
 
+interface AuthRouteChildren {
+  AuthAuthViewRoute: typeof AuthAuthViewRoute
+  AuthIndexRoute: typeof AuthIndexRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthAuthViewRoute: AuthAuthViewRoute,
+  AuthIndexRoute: AuthIndexRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 interface UUsernameRouteChildren {
   UUsernameSlugRoute: typeof UUsernameSlugRoute
   UUsernameDonateRoute: typeof UUsernameDonateRoute
@@ -1711,6 +1739,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   ApiRoute: ApiRouteWithChildren,
+  AuthRoute: AuthRouteWithChildren,
   BatchRoute: BatchRoute,
   CardRoute: CardRoute,
   ClaimRoute: ClaimRoute,
@@ -1738,14 +1767,12 @@ const rootRouteChildren: RootRouteChildren = {
   DotwellKnownAtprotoDidRoute: DotwellKnownAtprotoDidRoute,
   AccountAccountViewRoute: AccountAccountViewRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
-  AuthAuthViewRoute: AuthAuthViewRoute,
   DevEmailsRoute: DevEmailsRoute,
   GiftCodeRoute: GiftCodeRoute,
   RUsernameRoute: RUsernameRoute,
   SSlugRoute: SSlugRoute,
   StatsTokenRoute: StatsTokenRoute,
   UUsernameRoute: UUsernameRouteWithChildren,
-  AuthIndexRoute: AuthIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiBunqCheckStatusRoute: ApiBunqCheckStatusRoute,
   ApiProfilesCheckHandleRoute: ApiProfilesCheckHandleRoute,
