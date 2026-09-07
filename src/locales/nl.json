@@ -257,6 +257,7 @@
   "auth.sent.title": "Check je inbox",
   "auth.setup.body": "Er bestaat nog geen beheerder. Het eerste account dat hier wordt aangemaakt, wordt automatisch Super Admin en krijgt toegang tot /admin.",
   "auth.setup.title": "Setupmodus",
+  "auth.signup.cta": "Account aanmaken",
   "auth.sso.note": "Mastodon en Keycloak dekken de Fediverse en self-hosted SSO (Authentik, Keycloak, Authelia).",
   "auth.subtitle": "Eén e-mailadres, één link. Nieuw of terugkerend — dezelfde knop werkt.",
   "auth.terms.and": "en",

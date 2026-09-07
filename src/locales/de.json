@@ -257,6 +257,7 @@
   "auth.sent.title": "Prüfe dein Postfach",
   "auth.setup.body": "Es gibt noch keinen Administrator. Das erste hier erstellte Konto wird automatisch Super Admin und erhält Zugang zu /admin.",
   "auth.setup.title": "Setup-Modus",
+  "auth.signup.cta": "Konto erstellen",
   "auth.sso.note": "Mastodon und Keycloak deckt das Fediverse und selbst gehostetes SSO ab (Authentik, Keycloak, Authelia).",
   "auth.subtitle": "Eine E-Mail-Adresse, ein Link. Neu oder wiederkehrend — derselbe Button funktioniert.",
   "auth.terms.and": "und",

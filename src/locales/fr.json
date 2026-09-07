@@ -257,6 +257,7 @@
   "auth.sent.title": "Vérifiez votre boîte",
   "auth.setup.body": "Aucun administrateur n'existe encore. Le premier compte créé ici devient automatiquement Super Admin et accède à /admin.",
   "auth.setup.title": "Mode installation",
+  "auth.signup.cta": "Créer un compte",
   "auth.sso.note": "Mastodon et Keycloak couvrent le Fediverse et le SSO auto-hébergé (Authentik, Keycloak, Authelia).",
   "auth.subtitle": "Une adresse e-mail, un lien. Nouveau ou de retour — le même bouton fonctionne.",
   "auth.terms.and": "et",

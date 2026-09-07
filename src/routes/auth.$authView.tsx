@@ -1,9 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { AuthView } from "@neondatabase/neon-js/auth/react/ui";
+import { createFileRoute, notFound } from "@tanstack/react-router";
+
+import AuthNeon from "@/pages/AuthNeon";
 
 /**
- * Neon Auth views: /auth/sign-in, /auth/sign-up, /auth/magic-link,
- * /auth/forgot-password, /auth/reset-password, …
+ * Inloggen en aanmelden via de eigen ROUT-kaart; de Neon Auth-client
+ * regelt OAuth, magic links en wachtwoorden eronder.
+ * `/auth/sign-in` en `/auth/sign-up` zijn de enige eigen schermen —
+ * overige views (reset e.d.) komen van de Neon Auth-service zelf.
  */
 export const Route = createFileRoute("/auth/$authView")({
   head: () => ({
@@ -22,15 +25,12 @@ export const Route = createFileRoute("/auth/$authView")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: NeonAuthPage,
+  component: AuthPage,
 });
 
-function NeonAuthPage() {
+function AuthPage() {
   const { authView } = Route.useParams();
-
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
-      <AuthView path={authView} />
-    </div>
-  );
+  if (authView === "sign-in") return <AuthNeon initialMode="magic" />;
+  if (authView === "sign-up") return <AuthNeon initialMode="signup" />;
+  throw notFound();
 }
