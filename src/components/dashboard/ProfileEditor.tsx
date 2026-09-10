@@ -1292,13 +1292,8 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                           );
                         })}
                       </div>
-                      {!verified && (
-                        <p className="text-[11px] text-muted-foreground">
-                          Directe rout.be/ links en het blauwe vinkje zijn exclusief voor
-                          Pro-accounts.
-                        </p>
-                      )}
                       <p className="text-[11px] text-muted-foreground">
+
                         Geverifieerde handles krijgen nooit automatische cijfers. In privé-modus
                         hoeft je alias niets met je wettelijke naam te maken te hebben.
                       </p>
