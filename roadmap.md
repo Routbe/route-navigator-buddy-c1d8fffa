@@ -22,7 +22,7 @@
 ## Open werk (nieuw gemeld)
 - [x] Studio-preview: vaste framemaat (krimpt niet meer bij weinig tekst) + echt 390px telefoonviewport
 - [x] Studio-preview matcht de publieke route (alias `/u/<handle>` toont mens-badge "Gekoppeld aan een geverifieerd account")
-- [ ] Hub-instellingen gratis account: dubbele "Identiteit, URL & badge" naast de profielkeuze bovenaan verwijderen
+- [x] Hub-instellingen gratis account: dubbele "Identiteit, URL & badge" naast de profielkeuze bovenaan verwijderen
 - [x] Hub-instellingen opgesplitst in losse secties (Betalingen, Data & domein, Handle/URL, Badges, Steunpagina, Verificatie, SEO)
 - [ ] Meer Pagina Bezoek Effects toevoegen
 - [x] Verified-badge (hand-met-keurmerk) tonen op u/-pagina van verified leden, per lid uitschakelbaar (schakelaars in de studio)
