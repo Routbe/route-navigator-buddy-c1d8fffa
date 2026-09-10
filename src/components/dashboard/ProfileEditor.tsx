@@ -1221,15 +1221,18 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                     )}
                   </section>
 
+                  {/* Gratis accounts hebben maar één publieke ruimte: de keuze
+                      staat al bovenaan bij de profielkiezer, dus hier weg. */}
+                  {verified && (
                   <section className="space-y-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
                     <div>
                       <h2 className="text-lg font-medium">Identiteit, URL &amp; badge</h2>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        {verified
-                          ? "Eén account, twee publieke ruimtes: je geverifieerde profiel en je privé alias-hub."
-                          : "Je alias-hub is actief. Directe rout.be/ links komen vrij met Pro."}
+                        Eén account, twee publieke ruimtes: je geverifieerde profiel en je privé
+                        alias-hub.
                       </p>
                     </div>
+
 
                     <div className="space-y-2">
                       <p className="input-label">Actieve identiteit</p>
@@ -1289,13 +1292,8 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                           );
                         })}
                       </div>
-                      {!verified && (
-                        <p className="text-[11px] text-muted-foreground">
-                          Directe rout.be/ links en het blauwe vinkje zijn exclusief voor
-                          Pro-accounts.
-                        </p>
-                      )}
                       <p className="text-[11px] text-muted-foreground">
+
                         Geverifieerde handles krijgen nooit automatische cijfers. In privé-modus
                         hoeft je alias niets met je wettelijke naam te maken te hebben.
                       </p>
@@ -1318,6 +1316,8 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                       </p>
                     </div>
                   </section>
+                  )}
+
                 </AccordionContent>
               </AccordionItem>
 

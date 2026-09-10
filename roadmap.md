@@ -22,7 +22,7 @@
 ## Open werk (nieuw gemeld)
 - [x] Studio-preview: vaste framemaat (krimpt niet meer bij weinig tekst) + echt 390px telefoonviewport
 - [x] Studio-preview matcht de publieke route (alias `/u/<handle>` toont mens-badge "Gekoppeld aan een geverifieerd account")
-- [ ] Hub-instellingen gratis account: dubbele "Identiteit, URL & badge" naast de profielkeuze bovenaan verwijderen
+- [x] Hub-instellingen gratis account: dubbele "Identiteit, URL & badge" naast de profielkeuze bovenaan verwijderen
 - [x] Hub-instellingen opgesplitst in losse secties (Betalingen, Data & domein, Handle/URL, Badges, Steunpagina, Verificatie, SEO)
 - [ ] Meer Pagina Bezoek Effects toevoegen
 - [x] Verified-badge (hand-met-keurmerk) tonen op u/-pagina van verified leden, per lid uitschakelbaar (schakelaars in de studio)
@@ -62,11 +62,11 @@
 ## Nieuw gemeld (admin, studio, footer)
 - [ ] Studio → Design & styling: map "🎨 Thema & Kleurenschema" volledig verwijderen (overlapt met 🖼️ Achtergrond & Visual FX)
 - [ ] Adminportaal: geverifieerde naam wijzigen met schakelaar "username mee wijzigen" → voornaam.achternaam volgens de bestaande handleregels, achteraf aanpasbaar
-- [ ] Footer: "© 2026 ROUT • Open Source (AGPLv3)" gecentreerd zodat de footer smaller kan
+- [x] Footer: "© 2026 ROUT • Open Source (AGPLv3)" gecentreerd zodat de footer smaller kan
 
 ## Nieuwe taken (about + profiel)
-- [ ] About-pagina: "claim je handle" CTA's (boven en onder) starten de tour (/tour)
-- [ ] About-pagina: dubbele claim-knoppen onderaan samenvoegen tot 1 sterke CTA
+- [x] About-pagina: "claim je handle" CTA's (boven en onder) starten de tour (/tour)
+- [x] About-pagina: dubbele claim-knoppen onderaan samenvoegen tot 1 sterke CTA
 - [ ] About-pagina visueel opwaarderen + volledig 4-talig (nl/en/fr/de)
 - [x] Tour-pagina volledig 4-talig (alle stapteksten via tour.* sleutels in nl/en/fr/de)
 - [ ] Profiel: knop "Contact opslaan" (vCard) met schakelaars per veld in de Studio
