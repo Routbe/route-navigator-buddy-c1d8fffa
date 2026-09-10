@@ -1221,15 +1221,18 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                     )}
                   </section>
 
+                  {/* Gratis accounts hebben maar één publieke ruimte: de keuze
+                      staat al bovenaan bij de profielkiezer, dus hier weg. */}
+                  {verified && (
                   <section className="space-y-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
                     <div>
                       <h2 className="text-lg font-medium">Identiteit, URL &amp; badge</h2>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        {verified
-                          ? "Eén account, twee publieke ruimtes: je geverifieerde profiel en je privé alias-hub."
-                          : "Je alias-hub is actief. Directe rout.be/ links komen vrij met Pro."}
+                        Eén account, twee publieke ruimtes: je geverifieerde profiel en je privé
+                        alias-hub.
                       </p>
                     </div>
+
 
                     <div className="space-y-2">
                       <p className="input-label">Actieve identiteit</p>
