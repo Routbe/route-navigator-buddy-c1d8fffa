@@ -1316,6 +1316,8 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                       </p>
                     </div>
                   </section>
+                  )}
+
                 </AccordionContent>
               </AccordionItem>
 
