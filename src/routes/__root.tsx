@@ -146,7 +146,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // Het thema-effect (useTheme) zet na hydratie class/colorScheme op <html>;
+    // suppressHydrationWarning voorkomt een loze React-waarschuwing daarover.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
