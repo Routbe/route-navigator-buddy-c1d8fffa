@@ -32,6 +32,10 @@ export const createApiKey = createServerFn({ method: "POST" })
               "links:write",
               "analytics:read",
               "domains:read",
+              "profile:read",
+              "profile:write",
+              "bookings:read",
+              "bookings:write",
             ]),
           )
           .min(1),
