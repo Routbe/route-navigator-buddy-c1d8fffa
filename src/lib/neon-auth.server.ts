@@ -1,6 +1,7 @@
 import { createAuthServer } from "@neondatabase/neon-js/auth/server";
 import type { SessionUser } from "@/lib/auth/session.server";
 import { sql } from "@/lib/neon";
+import { canonicalAppUrl, isApprovedHost } from "@/lib/app-url";
 
 /**
  * Neon Auth — server side.
@@ -46,7 +47,6 @@ function createServer() {
         // Eén canonieke origin: een preview- of deploy-host mag nooit in een
         // OAuth-redirect belanden (dat geeft `redirect_uri_mismatch`).
         getOrigin: () => {
-          const { canonicalAppUrl, isApprovedHost } = await import("@/lib/app-url");
           const headers = getRequestHeaders();
           const configured = process.env["NEXT_PUBLIC_APP_URL"];
           if (configured) return configured.replace(/\/$/, "");
