@@ -1,6 +1,7 @@
 import { neon as neonSql, type NeonQueryFunction } from "@neondatabase/serverless";
 import { createAuthClient } from "@neondatabase/neon-js/auth";
 import { BetterAuthReactAdapter } from "@neondatabase/neon-js/auth/react/adapters";
+import { canonicalAppUrl } from "@/lib/app-url";
 
 /**
  * Neon-clients voor project ROUT.

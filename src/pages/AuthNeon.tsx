@@ -11,6 +11,7 @@ import { PasswordField } from "@/components/PasswordField";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/lib/i18n";
 import { neonAuth } from "@/lib/neon";
+import { authCallbackUrl } from "@/lib/app-url";
 import { BRAND_ICONS } from "@/utils/brandIcons";
 
 /** Official multi-colour Google "G" — required by Google Identity branding. */
@@ -117,7 +118,9 @@ export default function AuthNeon({ initialMode = "magic" }: { initialMode?: Mode
     nav("/dashboard", { replace: true });
   }, [user, nav]);
 
-  const callbackURL = typeof window === "undefined" ? "/dashboard" : `${window.location.origin}/dashboard`;
+  // Altijd de canonieke origin: preview-hosts mogen nooit in een OAuth-redirect
+  // belanden, anders weigert Google met `redirect_uri_mismatch`.
+  const callbackURL = authCallbackUrl("/dashboard");
 
   const onEmailChange = (value: string) => {
     setEmail(value);
