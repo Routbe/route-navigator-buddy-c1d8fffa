@@ -43,20 +43,16 @@ function createServer() {
           setCookie(name, value, options as never);
         },
         getHeader: (name: string) => getRequestHeader(name) ?? null,
+        // Eén canonieke origin: een preview- of deploy-host mag nooit in een
+        // OAuth-redirect belanden (dat geeft `redirect_uri_mismatch`).
         getOrigin: () => {
+          const { canonicalAppUrl, isApprovedHost } = await import("@/lib/app-url");
           const headers = getRequestHeaders();
-          const origin = headers["origin"];
-          if (origin) return origin;
-          const referer = headers["referer"];
-          if (referer) {
-            try {
-              return new URL(referer).origin;
-            } catch {
-              /* fall through */
-            }
-          }
+          const configured = process.env["NEXT_PUBLIC_APP_URL"];
+          if (configured) return configured.replace(/\/$/, "");
           const host = headers["host"];
-          return host ? `https://${host}` : "";
+          if (host && isApprovedHost(host)) return `https://${host}`;
+          return canonicalAppUrl();
         },
         getFramework: () => "tanstack-start",
       };
