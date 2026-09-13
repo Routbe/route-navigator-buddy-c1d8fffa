@@ -70,3 +70,8 @@
 - [ ] About-pagina visueel opwaarderen + volledig 4-talig (nl/en/fr/de)
 - [x] Tour-pagina volledig 4-talig (alle stapteksten via tour.* sleutels in nl/en/fr/de)
 - [ ] Profiel: knop "Contact opslaan" (vCard) met schakelaars per veld in de Studio
+
+## Auth-domeinsoevereiniteit (nieuw gemeld 13-09)
+- [x] Eén canonieke origin voor alle OAuth-callbacks (src/lib/app-url.ts): NEXT_PUBLIC_APP_URL / VITE_NEXT_PUBLIC_APP_URL, preview-hosts geweerd
+- [x] Callbackpad vast op /api/auth/callback/<provider> via de eigen proxy (Google, GitHub, Mastodon, Keycloak, GitLab)
+- [ ] Redirect-URI's in elke providerconsole (Google, GitHub, ...) zetten op https://rout.be/api/auth/callback/<provider>

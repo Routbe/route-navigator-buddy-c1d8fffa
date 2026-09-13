@@ -1,6 +1,7 @@
 import { createAuthServer } from "@neondatabase/neon-js/auth/server";
 import type { SessionUser } from "@/lib/auth/session.server";
 import { sql } from "@/lib/neon";
+import { canonicalAppUrl, isApprovedHost } from "@/lib/app-url";
 
 /**
  * Neon Auth — server side.
@@ -43,20 +44,15 @@ function createServer() {
           setCookie(name, value, options as never);
         },
         getHeader: (name: string) => getRequestHeader(name) ?? null,
+        // Eén canonieke origin: een preview- of deploy-host mag nooit in een
+        // OAuth-redirect belanden (dat geeft `redirect_uri_mismatch`).
         getOrigin: () => {
           const headers = getRequestHeaders();
-          const origin = headers["origin"];
-          if (origin) return origin;
-          const referer = headers["referer"];
-          if (referer) {
-            try {
-              return new URL(referer).origin;
-            } catch {
-              /* fall through */
-            }
-          }
+          const configured = process.env["NEXT_PUBLIC_APP_URL"];
+          if (configured) return configured.replace(/\/$/, "");
           const host = headers["host"];
-          return host ? `https://${host}` : "";
+          if (host && isApprovedHost(host)) return `https://${host}`;
+          return canonicalAppUrl();
         },
         getFramework: () => "tanstack-start",
       };
